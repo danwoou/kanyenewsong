@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>속은 당신 바보</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #container {
+            transition: all 1s ease;
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #bigButton {
+            font-size: 30px;
+            padding: 20px 40px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        #message {
+            font-size: 50px;
+            font-weight: bold;
+            display: none;
+            color: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: fall 2s infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -50px;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
+        #container.fullscreen {
+            transform: scale(1.2);
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <button id="bigButton">Kanye West's new song</button>
+        <div id="message">이걸 속은 당신 바보</div>
+    </div>
+
+    <script>
+        const button = document.getElementById('bigButton');
+        const message = document.getElementById('message');
+        const container = document.getElementById('container');
+
+        const emojis = ['❤️', '🤣', '💀', '💩', '🔥', '😎', '🌟'];
+
+        button.addEventListener('click', () => {
+            container.classList.add('fullscreen'); // 창 크기 확대
+            message.style.display = 'block'; // 메시지 표시
+            generateEmojis(); // 이모지 생성
+            button.style.display = 'none'; // 버튼 숨기기
+        });
+
+        // 이모지들이 하늘에서 떨어지게 만드는 함수
+        function generateEmojis() {
+            for (let i = 0; i < 50; i++) {
+                const emoji = document.createElement('div');
+                emoji.classList.add('emoji');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = `${Math.random() * 100}vw`; // 랜덤 위치
+                emoji.style.animationDuration = `${Math.random() * 2 + 2}s`; // 랜덤 속도
+                document.body.appendChild(emoji);
+            }
+        }
+    </script>
+</body>
+</html>
